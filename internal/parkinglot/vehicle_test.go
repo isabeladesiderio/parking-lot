@@ -3,7 +3,7 @@ package internal_test
 import (
 	"testing"
 
-	"github.com/isabeladesiderio/internal"
+	internal "github.com/isabeladesiderio/internal/parkinglot"
 )
 
 func TestDistributeInitialSpaces(t *testing.T) {
@@ -44,7 +44,7 @@ func TestDistributeInitialSpaces(t *testing.T) {
 
 	for _, ts := range testScenarios {
 		t.Run(ts.Name, func(t *testing.T) {
-			vehicleTypes := internal.DistributeInitialSpaces(ts.TotalSpaces)
+			vehicleTypes := internal.DistributeSpaces(ts.TotalSpaces)
 
 			if vehicleTypes[internal.Car] != ts.expectedCar ||
 				vehicleTypes[internal.Motorcycle] != ts.expectedMoto ||

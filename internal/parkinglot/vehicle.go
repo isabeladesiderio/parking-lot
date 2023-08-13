@@ -3,7 +3,7 @@ package internal
 import "fmt"
 
 // Método para distribuição inicial de vagas para cada tipo de veículo
-func DistributeInitialSpaces(TotalSpaces int) map[VehicleType]int {
+func DistributeSpaces(TotalSpaces int) map[VehicleType]int {
 	vehiclesType := make(map[VehicleType]int)
 	vehiclesType[Car] = TotalSpaces / 2
 	vehiclesType[Motorcycle] = TotalSpaces / 4
@@ -12,7 +12,6 @@ func DistributeInitialSpaces(TotalSpaces int) map[VehicleType]int {
 	return vehiclesType
 }
 
-// / Método para adicionar um novo veículo
 func (p *ParkingLot) ParkVehicle(vehicle Vehicle) error {
 	// Verifica se o estacionamento está cheio
 	if p.OccupiedSpaces >= p.TotalSpaces {
@@ -62,19 +61,6 @@ func (p *ParkingLot) ParkVehicle(vehicle Vehicle) error {
 	// Retorna nil para indicar que o estacionamento ocorreu com sucesso
 	return nil
 }
-
-// Método para remover um veículo do estacionamento
-// func (p *ParkingLot) RemoveVehicle(licensePlate string) error {
-// 	vehicle, exists := p.VehiclesDescription[licensePlate]
-// 	if !exists {
-// 		return fmt.Errorf("vehicle not found")
-// 	}
-
-// 	p.VehiclesType[vehicle.Type]++
-// 	p.OccupiedSpaces--
-// 	delete(p.VehiclesDescription, licensePlate)
-// 	return nil
-// }
 
 // Método para obter o número de vagas ocupadas por veículo
 func (p *ParkingLot) GetOccupiedSpacesByVehicle(vehicleType VehicleType) int {

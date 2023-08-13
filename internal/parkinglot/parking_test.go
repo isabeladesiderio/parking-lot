@@ -3,7 +3,7 @@ package internal_test
 import (
 	"testing"
 
-	"github.com/isabeladesiderio/internal"
+	internal "github.com/isabeladesiderio/internal/parkinglot"
 )
 
 func TestIsFull(t *testing.T) {

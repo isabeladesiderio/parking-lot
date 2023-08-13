@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/isabeladesiderio/internal"
+	internal "github.com/isabeladesiderio/internal/parkinglot"
 )
 
 func main() {
