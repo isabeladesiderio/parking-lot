@@ -2,7 +2,6 @@ package internal
 
 import "fmt"
 
-// Método para distribuição inicial de vagas para cada tipo de veículo
 func DistributeSpaces(TotalSpaces int) map[VehicleType]int {
 	vehiclesType := make(map[VehicleType]int)
 	vehiclesType[Car] = TotalSpaces / 2
@@ -13,12 +12,13 @@ func DistributeSpaces(TotalSpaces int) map[VehicleType]int {
 }
 
 func (p *ParkingLot) ParkVehicle(vehicle Vehicle) error {
-	// Verifica se o estacionamento está cheio
-	if p.OccupiedSpaces >= p.TotalSpaces {
+
+	// Check if the parking lot is full
+	if p.IsFull() {
 		return fmt.Errorf("parking lot is full")
 	}
 
-	// Verifica se já há um veículo com a mesma placa no estacionamento
+	// Checks if there is already a vehicle with the same license plate in the parking lot
 	for _, existsVehicle := range p.VehiclesDescription {
 		if existsVehicle.LicensePlate == vehicle.LicensePlate {
 			return fmt.Errorf("vehicle with the same license plate is already parked")
@@ -26,11 +26,11 @@ func (p *ParkingLot) ParkVehicle(vehicle Vehicle) error {
 	}
 
 	if vehicle.Type == Van {
-		// Verifica se há vagas de van disponíveis
+		// Check if there are available van spaces
 		if p.VehiclesType[Van] > 0 {
 			p.VehiclesType[Van]--
 		} else if p.VehiclesType[Car] >= 3 {
-			// Se não houver vaga de van disponível, estaciona em 3 vagas de carro
+			// If there is no available van space, park in 3 car spaces
 			p.VehiclesType[Car] -= 3
 		} else {
 			return fmt.Errorf("no available spaces for this vehicle type")
@@ -38,7 +38,7 @@ func (p *ParkingLot) ParkVehicle(vehicle Vehicle) error {
 	}
 
 	if vehicle.Type == Car {
-		// Verifica se há vagas de carro disponíveis
+		// Check if there are available car spaces
 		if p.VehiclesType[Car] > 0 {
 			p.VehiclesType[Car]--
 		} else {
@@ -46,7 +46,7 @@ func (p *ParkingLot) ParkVehicle(vehicle Vehicle) error {
 		}
 	}
 	if vehicle.Type == Motorcycle {
-		// Verifica se há vagas de moto disponíveis
+		// Check if there are available motorcycle spaces
 		if p.VehiclesType[Motorcycle] > 0 {
 			p.VehiclesType[Motorcycle]--
 		} else {
@@ -54,15 +54,13 @@ func (p *ParkingLot) ParkVehicle(vehicle Vehicle) error {
 		}
 	}
 
-	// Registra o veículo no mapa de descrição de veículos
+	// Register the vehicle in the vehicle description map
 	p.VehiclesDescription[vehicle.LicensePlate] = vehicle
 	p.OccupiedSpaces++
 
-	// Retorna nil para indicar que o estacionamento ocorreu com sucesso
 	return nil
 }
 
-// Método para obter o número de vagas ocupadas por veículo
 func (p *ParkingLot) GetOccupiedSpacesByVehicle(vehicleType VehicleType) int {
 	initialSpaces := p.TotalSpaces / 2
 	if vehicleType == Motorcycle || vehicleType == Van {

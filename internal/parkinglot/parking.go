@@ -65,22 +65,18 @@ func NewParkingLot(totalSpaces int) *ParkingLot {
 	return &prk
 }
 
-// Método para verificar se o estacionamento está cheio
 func (p *ParkingLot) IsFull() bool {
 	return p.OccupiedSpaces >= p.TotalSpaces
 }
 
-// Método para verificar se o estacionamento está vazio
 func (p *ParkingLot) IsEmpty() bool {
 	return p.OccupiedSpaces == 0
 }
 
-// Método para verificar se todas as vagas de um determinado tipo de veículo estão cheias
 func (p *ParkingLot) SpacesVehicleTypeFull(vehicleType VehicleType) bool {
 	return p.VehiclesType[vehicleType] == 0
 }
 
-// Método para obter o número de vagas restantes por veículo
 func (p *ParkingLot) GetSpacesByVehicle(vehicleType VehicleType) int {
 	return p.VehiclesType[vehicleType]
 }
